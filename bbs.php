@@ -7,10 +7,25 @@
     </head>
     
     <body>
+      <?php
+        //受け取ったデータを表示
+        print_r($_POST);
+
+        if(isset($_POST["content"])){
+          $content = $_POST["content"];
+        }else{
+          $content = "なし";
+        }
+        echo "投稿内容を受信:" . $content;
+      ?>
       <h1>掲示板</h1>
 
       <h2>投稿フォーム</h2>
-      <p>ここに投稿フォームを追加</p>
+      <form action="bbs.php" method="POST">
+        <label>投稿内容</label>
+        <input type="text" name="content">
+        <button type="submit">送信</button>
+      </form>
       <h2>発言リスト</h2>
         <?php
           //データベースに接続する
@@ -22,9 +37,9 @@
           $stmt->execute();
 
           //取得したデータを表示する
-          $row = $stmt->fetch(PDO::FETCH_ASSOC);
-          print_r($row);
+          while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
           echo("<br/>");
+          }
           ?>
 
         <table>

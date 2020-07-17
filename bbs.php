@@ -8,11 +8,19 @@
     
     <body>
       <?php
+        //データベースに接続する
+        $pdo = new PDO("mysql:host=127.0.0.1;dbname=lesson;charset=utf8", "root", "");
+
         //受け取ったデータを表示
         print_r($_POST);
 
         if(isset($_POST["content"])){
           $content = $_POST["content"];
+          //データベースに書き込む
+          $sql = "INSERT INTO bbs (content, updated_at) VALUES (:content, NOW());";
+          $stmt = $pdo->prepare($sql);
+          $stmt->bindValue(":content", $content, PDO::PARAM_STR);
+          $stmt -> execute();
         }else{
           $content = "なし";
         }

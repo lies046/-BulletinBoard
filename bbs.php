@@ -12,6 +12,21 @@
       <h2>投稿フォーム</h2>
       <p>ここに投稿フォームを追加</p>
       <h2>発言リスト</h2>
+        <?php
+          //データベースに接続する
+          $pdo = new PDO("mysql:host=127.0.0.1;dbname=lesson;charset=utf8", "root", "");
+
+          //データベースからのデータ取得
+          $sql = "SELECT * FROM bbs ORDER BY updated_at;";
+          $stmt = $pdo->prepare($sql);
+          $stmt->execute();
+
+          //取得したデータを表示する
+          $row = $stmt->fetch(PDO::FETCH_ASSOC);
+          print_r($row);
+          echo("<br/>");
+          ?>
+
         <table>
           <tr></tr>
             <th>id</th>
